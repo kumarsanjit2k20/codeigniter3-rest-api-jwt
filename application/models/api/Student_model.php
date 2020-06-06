@@ -43,8 +43,8 @@ class Student_model extends CI_Model {
         {
             $sql_frm=$sql_frm." AND id_150<>$stu_id";
         } 
-        $result=$this->db->query($sql_frm)->row();
-        return $result;
+        $result=$this->db->query($sql_frm);
+        return $result->row();
     }
     public function is_mobile_exist($phone, $stu_id=''){
         /*
@@ -58,8 +58,8 @@ class Student_model extends CI_Model {
         {
             $sql_frm=$sql_frm." AND id_150<>$stu_id";
         } 
-        $result=$this->db->query($sql_frm)->row();
-        return $result;
+        $result=$this->db->query($sql_frm);
+        return $result->row();
     }
 
     public function update_student_details($student_data, $stu_id)
