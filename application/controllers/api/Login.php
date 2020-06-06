@@ -11,12 +11,9 @@ class Login extends REST_Controller
         $this->load->model('api/student_model');
 		$this->load->helper(array('authorization','jwt'));
 	}
-	
-	public function index(){
 
-    }
     // student login 
-    function login_post()
+    function index_post()
     {
         $post_data=json_decode(file_get_contents("php://input"));
         if (isset($post_data->student_email) and isset($post_data->password)) 
@@ -26,7 +23,6 @@ class Login extends REST_Controller
             $student_details=$this->student_model->verify_student($input_email);
             if (!empty($student_details)) 
             {
-
                 if (password_verify($input_password, $student_details[0]->password_150)) 
                 {
                     $jwt_token = authorization::generateToken((array)$student_details); // here we type casting object form to array form 
@@ -61,9 +57,34 @@ class Login extends REST_Controller
         }
     }
 
+    /*
     public function login_demo_post(){
         $post_data=json_decode(file_get_contents("php://input"));
-        $this->response($post_data);
-        die();
+        $input_email=$post_data->email;
+        $input_password=$post_data->password;
+        $student_details=$this->student_model->verify_student($input_email);
+        if ($student_details) {
+            if (password_verify($input_password, $student_details[0]->password_150)) {
+                $jwt_student_token=authorization::generateToken((array)$student_details)
+                $this->response(array(
+                    'status'=>1,
+                    'message'=>'Login Successfully!',
+                    'login_token'=>$jwt_student_token
+                ),HTTP_OK);
+            }else{
+                // $jwt_student_token=authorization::generateToken((array)$student_details)
+                $this->response(array(
+                    'status'=>0,
+                    'message'=>'Invalid Credentials!'
+        ),HTTP_NOT_FOUND);
+            }
+        }else{
+            $this->response(array(
+                    'status'=>0,
+                    'message'=>'Student Not Found!'
+            ),HTTP_NOT_FOUND);
+        }
+        
     }
+    */
 }
