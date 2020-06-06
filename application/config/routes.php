@@ -54,6 +54,8 @@ $route['api/registration'] = 'api/registration/index_post';
 $route['api/login'] = 'api/login/index_post';
 
 $route['api/branches'] = 'api/branch/branch_list';
+$route['api/semester-projects'] = 'api/semester/projects_list';
+$route['api/student-wise-projects'] = 'api/semester/list_project_student_wise';
 
 
 $route['404_override'] = '';

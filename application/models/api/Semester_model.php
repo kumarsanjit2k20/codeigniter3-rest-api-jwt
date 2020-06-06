@@ -14,6 +14,21 @@ class Semester_model extends CI_Model {
         $result=$this->db->insert('200_semester_projects', $project_data);
         return $result;
     }
+
+    public function update_project($project_data, $project_id){
+        $sql_del="SELECT id_200 FROM 200_semester_projects 
+        WHERE student_id_150_200='$project_id'";
+        $result=$this->db->query($sql_del)->result_array();
+        if (count($result)>0) 
+        {
+            return $this->db->update('200_semester_projects', $project_data);
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     public function get_all_projects()
     {
         $sql_frm_projects="SELECT
