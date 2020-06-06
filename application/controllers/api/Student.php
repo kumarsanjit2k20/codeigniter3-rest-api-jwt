@@ -45,7 +45,7 @@ class Student extends REST_Controller
                 //     'message'=>'Students Details',
                 //     'student_data'=>$student_data
                 // ), parent::HTTP_OK);
-         }
+            }
         }
         catch(Exception $exep)
         {
