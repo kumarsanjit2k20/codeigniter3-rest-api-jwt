@@ -6,22 +6,7 @@ header("Access-Control-Allow-Methods: POST, GET");
 class Student extends REST_Controller 
 {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	    public function __construct()
+	public function __construct()
     {
         parent::__construct();
         $this->load->model('api/student_model');
@@ -30,8 +15,49 @@ class Student extends REST_Controller
 
         
     // list of students
-    function list_students_get()
+    function students_list_get()
     {
+
+        $headers=$this->input->request_headers();
+        $token=$headers['Authorization'];
+        try
+        {
+            $student_data=authorization::validateToken($token);
+            if ($student_data===FALSE) 
+            {
+                $this->response(array(
+                    'status'=>0,
+                    'message'=>'Unauthorized Access!'
+                ), parent::HTTP_UNAUTHORIZED);
+            }
+            else{
+                // $student_list=$this->student_model->get_all_students();
+                // if (count($student_list)>0) {
+                    $this->response(array(
+                            'status' =>1,
+                            'message'=>'List of Students',
+                            'data'=>$student_data
+                    ), parent::HTTP_OK);
+
+
+                // $this->response(array(
+                //     'status' =>1,
+                //     'message'=>'Students Details',
+                //     'student_data'=>$student_data
+                // ), parent::HTTP_OK);
+         }
+        }
+        catch(Exception $exep)
+        {
+            $this->response(array(
+                'status'=>0,
+                'message'=>$exep->getMessage()
+            ), parent::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+
+
+        /*
        $student_list=$this->student_model->get_all_students();
         if (count($student_list)>0) {
             $this->response(array(
@@ -45,7 +71,7 @@ class Student extends REST_Controller
                     'message'=>'No Records Found!'
             ), parent::HTTP_NOT_FOUND);
         }
-         
+         */
     }
 
     // update student details
