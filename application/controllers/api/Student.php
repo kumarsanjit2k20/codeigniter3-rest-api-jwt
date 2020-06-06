@@ -39,7 +39,7 @@ class Student extends REST_Controller
 
         try{
             $headers=$this->input->request_headers();
-            $student_token=$headers['Autherization'];
+            $student_token=$headers['Authorization'];
             $student_data=authorization::validateToken($student_token);
             if ($student_data==FALSE) {
                 $this->response(array(
