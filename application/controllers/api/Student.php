@@ -18,46 +18,6 @@ class Student extends REST_Controller
     function students_list_get()
     {
 
-        $headers=$this->input->request_headers();
-        $token=$headers['Authorization'];
-        try
-        {
-            $student_data=authorization::validateToken($token);
-            if ($student_data===FALSE) 
-            {
-                $this->response(array(
-                    'status'=>0,
-                    'message'=>'Unauthorized Access!'
-                ), parent::HTTP_UNAUTHORIZED);
-            }
-            else{
-                // $student_list=$this->student_model->get_all_students();
-                // if (count($student_list)>0) {
-                    $this->response(array(
-                            'status' =>1,
-                            'message'=>'List of Students',
-                            'data'=>$student_data
-                    ), parent::HTTP_OK);
-
-
-                // $this->response(array(
-                //     'status' =>1,
-                //     'message'=>'Students Details',
-                //     'student_data'=>$student_data
-                // ), parent::HTTP_OK);
-            }
-        }
-        catch(Exception $exep)
-        {
-            $this->response(array(
-                'status'=>0,
-                'message'=>$exep->getMessage()
-            ), parent::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-
-
-        /*
        $student_list=$this->student_model->get_all_students();
         if (count($student_list)>0) {
             $this->response(array(
@@ -71,12 +31,32 @@ class Student extends REST_Controller
                     'message'=>'No Records Found!'
             ), parent::HTTP_NOT_FOUND);
         }
-         */
     }
 
     // update student details
     function update_details_put(){
         $post_data=json_decode(file_get_contents("php://input"));
+
+        try{
+            $headers=$this->input->request_headers();
+            $student_token=$headers['Autherization'];
+            $student_data=authorization::validateToken($student_token);
+            if ($student_data==FALSE) {
+                $this->response(array(
+                    'status'=>0,
+                    'message'=>'Unautherized Access!'
+                ), HTTP_UNAUTHORIZED);
+            }
+        }
+        catch(Exception $exep)
+        {
+            $this->response(array(
+                'status'=>0,
+                'message'=>$exep->getMessage()
+            ), parent::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        
+
         if (isset($post_data->student_id) and isset($post_data->student_name) and isset($post_data->branch_id) and isset($post_data->student_mobile) and isset($post_data->student_email) and isset($post_data->address)) 
         {
             $student_data=array(
