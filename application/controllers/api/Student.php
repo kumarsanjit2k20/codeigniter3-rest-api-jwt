@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Student extends CI_Controller {
+require (APPPATH.'libraries/REST_Controller.php');
+header("Access-Control-Allow-Origin: * ");
+header("Access-Control-Allow-Methods: POST, GET");
+class Student extends REST_Controller 
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,6 +21,10 @@ class Student extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+		parent::__construct();
+		$this->load->helper(array('authorization','jwt'));
+	}
 	public function index()
 	{
 		$this->load->view('welcome_message');
