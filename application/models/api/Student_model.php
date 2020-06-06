@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Student_model extends CI_Model {
 
-    public function __construct(){
+    function __construct(){
         parent::__construct();
        
     }
@@ -41,10 +41,10 @@ class Student_model extends CI_Model {
         $sql_frm="SELECT id_150 FROM 150_students WHERE 1=1 AND email_150='$email'";  
         if (!empty($stu_id)) 
         {
-            $sql_frm=$sql_frm." AND id_150<>'$stu_id'";
+            $sql_frm=$sql_frm." AND id_150<>$stu_id";
         } 
-        $result=$this->db->query($sql_frm);
-        return $result->result_array();
+        $result=$this->db->query($sql_frm)->row();
+        return $result;
     }
     public function is_mobile_exist($phone, $stu_id=''){
         /*
@@ -56,10 +56,10 @@ class Student_model extends CI_Model {
         $sql_frm="SELECT id_150 FROM 150_students WHERE 1=1 AND mobile_150='$phone'";  
         if (!empty($stu_id)) 
         {
-            $sql_frm=$sql_frm." AND id_150<>'$stu_id'";
+            $sql_frm=$sql_frm." AND id_150<>$stu_id";
         } 
-        $result=$this->db->query($sql_frm);
-        return $result->result_array();
+        $result=$this->db->query($sql_frm)->row();
+        return $result;
     }
 
     public function update_student_details($student_data, $stu_id)
