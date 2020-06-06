@@ -45,7 +45,7 @@ class Student extends REST_Controller
                 $this->response(array(
                     'status'=>0,
                     'message'=>'Unautherized Access!'
-                ), HTTP_UNAUTHORIZED);
+                ), HTTP_NOT_FOUND);
             }
         }
         catch(Exception $exep)
