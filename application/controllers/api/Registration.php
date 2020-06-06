@@ -28,7 +28,7 @@ class Registration extends REST_Controller
 	}
 	
 	// register student
-    function create_student_get()
+    function index_get()
     {
         echo "This is Rowdy Rathor!";
         die();
