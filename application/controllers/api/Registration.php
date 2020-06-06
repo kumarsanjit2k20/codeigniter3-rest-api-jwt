@@ -23,6 +23,7 @@ class Registration extends REST_Controller
 	 */
 	public function __construct(){
 		parent::__construct();
+        $this->load->model('api/student_model');
 		$this->load->helper(array('authorization','jwt'));
 	}
 	
