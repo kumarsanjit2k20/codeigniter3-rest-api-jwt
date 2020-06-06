@@ -6,29 +6,18 @@ header("Access-Control-Allow-Methods: POST, GET");
 class Login extends REST_Controller 
 {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function __construct(){
 		parent::__construct();
+        $this->load->model('api/student_model');
 		$this->load->helper(array('authorization','jwt'));
 	}
 	
-	
+	public function index(){
+
+    }
     // student login 
-    function login_post(){
+    function login_post()
+    {
         $post_data=json_decode(file_get_contents("php://input"));
         if (isset($post_data->student_email) and isset($post_data->password)) 
         {
@@ -58,7 +47,7 @@ class Login extends REST_Controller
             { 
                 $this->response(array(
                     'status' =>0,
-                    'message'=>'Email does not exist!'
+                    'message'=>'Email/Username does not exist!'
                 ), parent::HTTP_NOT_FOUND);
                  
             }
@@ -67,8 +56,14 @@ class Login extends REST_Controller
         {
             $this->response(array(
                 'status' =>0,
-                'message'=>'All Fields are Required!'
+                'message'=>'Username/Password Fields are Required!'
             ), parent::HTTP_NOT_FOUND);
         }
+    }
+
+    public function login_demo_post(){
+        $post_data=json_decode(file_get_contents("php://input"));
+        $this->response($post_data);
+        die();
     }
 }
