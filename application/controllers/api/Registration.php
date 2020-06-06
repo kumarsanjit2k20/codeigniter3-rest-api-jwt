@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require (APPPATH.'libraries/REST_Controller.php');
 header("Access-Control-Allow-Origin: * ");
 header("Access-Control-Allow-Methods: POST, GET");
-class Login extends REST_Controller 
+class Registration extends REST_Controller 
 {
 
 	/**
