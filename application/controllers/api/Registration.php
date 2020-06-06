@@ -27,9 +27,10 @@ class Login extends REST_Controller
 	}
 	
 	// register student
-    function index_post()
+    function create_student_get()
     {
-
+        echo "This is Rowdy Rathor!";
+        die();
         $post_data=json_decode(file_get_contents("php://input"));
         if (isset($post_data->student_name) and isset($post_data->branch_id) and isset($post_data->student_mobile) and isset($post_data->student_email) and isset($post_data->password) and isset($post_data->address)) 
         {
