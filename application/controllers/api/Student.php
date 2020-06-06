@@ -34,9 +34,11 @@ class Student extends REST_Controller
     }
 
     // update student details
-    function update_details_put(){
-        $post_data=json_decode(file_get_contents("php://input"));
-
+    function update_details_put()
+    {
+        /* 
+        added by sanjit for validate user by token validation
+        
         try{
             $headers=$this->input->request_headers();
             $student_token=$headers['Authorization'];
@@ -45,7 +47,7 @@ class Student extends REST_Controller
                 $this->response(array(
                     'status'=>0,
                     'message'=>'Unautherized Access!'
-                ), HTTP_NOT_FOUND);
+                ), HTTP_UNAUTHORIZED);
             }
         }
         catch(Exception $exep)
@@ -56,7 +58,9 @@ class Student extends REST_Controller
             ), parent::HTTP_INTERNAL_SERVER_ERROR);
         }
         
+        */
 
+        $post_data=json_decode(file_get_contents("php://input"));
         if (isset($post_data->student_id) and isset($post_data->student_name) and isset($post_data->branch_id) and isset($post_data->student_mobile) and isset($post_data->student_email) and isset($post_data->address)) 
         {
             $student_data=array(
@@ -166,7 +170,7 @@ class Student extends REST_Controller
         {
             $this->response(array(
                 'status' =>0,
-                'message'=>'Branch ID Should be Needed'
+                'message'=>'Student ID is Required!'
             ), parent::HTTP_NOT_FOUND);
         }
     }
