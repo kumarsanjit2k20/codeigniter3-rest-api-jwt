@@ -53,6 +53,8 @@ $route['default_controller'] = 'api/student';
 $route['api/registration'] = 'api/registration/index_post';
 $route['api/login'] = 'api/login/index_post';
 
+$route['branches'] = 'api/branch/branch_list';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
