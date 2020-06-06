@@ -41,10 +41,10 @@ class Student_model extends CI_Model {
         $sql_frm="SELECT id_150 FROM 150_students WHERE 1=1 AND email_150='$email'";  
         if (!empty($stu_id)) 
         {
-            $sql_frm=$sql_frm." AND id_150<>$stu_id";
+            $sql_frm=$sql_frm." AND id_150<>'$stu_id'";
         } 
         $result=$this->db->query($sql_frm);
-        return $result->row();
+        return $result->result_array();
     }
     public function is_mobile_exist($phone, $stu_id=''){
         /*
@@ -56,10 +56,10 @@ class Student_model extends CI_Model {
         $sql_frm="SELECT id_150 FROM 150_students WHERE 1=1 AND mobile_150='$phone'";  
         if (!empty($stu_id)) 
         {
-            $sql_frm=$sql_frm." AND id_150<>$stu_id";
+            $sql_frm=$sql_frm." AND id_150<>'$stu_id'";
         } 
         $result=$this->db->query($sql_frm);
-        return $result->row();
+        return $result->result_array();
     }
 
     public function update_student_details($student_data, $stu_id)
